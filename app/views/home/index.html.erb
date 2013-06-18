@@ -1,0 +1,121 @@
+<% content_for(:title, 'Home Page | OmniAuth Example') %>
+
+<h1>OAuth on Rails</h1>
+<h3 class="subheader">Logging in With Twitter, Facebook, and More!</h3>
+<hr/>
+
+<p>
+Welcome to the wonderful world of OAuth. Using <a href="https://github.com/intridea/omniauth">OmniAuth</a>
+and its myriad <a href="https://github.com/intridea/omniauth/wiki/List-of-Strategies">strategies</a> you can
+add the ability to login to your Rails app via many 3rd party identity providers.
+</p>
+
+<div class="row">
+  <div class="small-10 large-centered columns">
+    <%= link_to 'Login with Facebook', '#',  class: 'button large' %>
+    &nbsp;
+    <%= link_to 'Login with Twitter', '#',  class: 'button large' %>
+    &nbsp;
+    <%= link_to 'Login with Github', '#',  class: 'button large' %>
+  </div>
+</div>
+
+<h2>Acquire Your Secrets</h2>
+<hr/>
+<p>
+For every provider you wish to provide OAuth access through you must <strong>acquire a set of developer tokens</strong>.
+Click on the desired provider below to go to the New Application signup form (note: you will have to create developer
+accounts for each provider.)
+</p>
+
+<ul class="large-block-grid-4">
+  <li>
+    <a class="th radius" href="https://developers.facebook.com/apps">
+      <%= image_tag('facebook-oauth.png') %>
+    </a>
+    <br/>
+    <h6 style="text-align:center;">Facebook</h6>
+  </li>
+  <li>
+    <a class="th radius" href="https://dev.twitter.com/apps/new">
+      <%= image_tag('twitter-oauth.png') %>
+    </a>
+    <br/>
+    <h6 style="text-align:center;">Twitter</h6>
+  </li>
+  <li>
+    <a class="th radius" href="https://github.com/settings/applications/new">
+      <%= image_tag('github-oauth.png') %>
+    </a>
+    <br/>
+    <h6 style="text-align:center;">Github</h6>
+  </li>
+</ul>
+
+<p>
+After you've created a new application for each provider you wish to provdie access through, note the assigned keys. Often
+they're called the <b>consumer key</b> and <b>consumer secret</b> or the <b>API key</b> and <b>API secret</b>.
+</p>
+
+
+<h2>Update Your Gemfile</h2>
+<hr/>
+<p>
+This guide assumes you're currently using <a href="https://github.com/plataformatec/devise">devise</a> to manage
+user authentication, but omniauth can be used with any auth solution (including homegrown). Add the appropriate gems
+to your gemfile to pull in the strategies you wish to use. For this example we'll be adding support for <b>Facebook</b>,
+<b>Twitter</b>, and <b>Github</b>.
+</p>
+
+<div class="panel">
+<pre>
+# Authentication
+gem 'devise'
+gem 'omniauth-facebook'
+gem 'omniauth-twitter'
+gem 'omniauth-github'
+</pre>
+</div>
+
+<h2>Add Initialization Code to <code>devise.rb</code></h2>
+<hr/>
+<p>
+
+</p>
+
+<h2>Create <code>omniauth_callbacks_controller.rb</code></h2>
+<hr/>
+<p>
+
+</p>
+
+<h2>Add OAuth fields to <code>User</code> table</h2>
+<hr/>
+<p>
+
+</p>
+
+<h2>Add Support to <code>User</code> class</h2>
+<hr/>
+<p>
+
+</p>
+
+<h2>Configure Environment Variables</h2>
+<hr/>
+<p>
+
+</p>
+
+<div class="row">
+  <div class="small-10 large-centered columns">
+    <%= link_to 'Login with Facebook', '#',  class: 'button large' %>
+    &nbsp;
+    <%= link_to 'Login with Twitter', '#',  class: 'button large' %>
+    &nbsp;
+    <%= link_to 'Login with Github', '#',  class: 'button large' %>
+  </div>
+</div>
+
+
+

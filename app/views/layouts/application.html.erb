@@ -13,7 +13,7 @@
   	<!-- Set the viewport width to device width for mobile -->
   	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  	<title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
+  	<title><%= content_for?(:title) ? yield(:title) : "OmniAuth Example" %></title>
 
   	<%= stylesheet_link_tag    "application" %>
   	<%= javascript_include_tag "vendor/custom.modernizr" %>
@@ -22,8 +22,11 @@
 
   <body>
 
-    <%= yield %>
-
+    <div class="row">
+        <div class="large-12">
+          <%= yield %>
+        </div>
+    </div>
     
     <%= javascript_include_tag "application" %>
   </body>
