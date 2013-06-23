@@ -104,6 +104,14 @@ There are a variety of ways to make the OAuth application tokens available to yo
   </li>
 </ol>
 
+<h2>Configure Devise Module for OmniAuth</h2>
+<hr/>
+<p>
+Open your <code>User</code> model and add the <code>:omniauthable</code> module.
+
+<%= highlight_code('configure-user.example', :ruby) %>
+</p>
+
 <h2>Create <code>omniauth_callbacks_controller.rb</code></h2>
 <hr/>
 <p>
