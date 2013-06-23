@@ -60,7 +60,7 @@ $ rails s
 ~~~~
 
 #### Work Through the Application to Add OAuth support
-Open [localhost:3000])http://localhost:3000) to the home page and being adding OAuth support to the application:
+Open [localhost:3000](http://localhost:3000) to the home page and being adding OAuth support to the application:
 
 * Browse the source code to see how everything is setup to begin with.
 * Work through the steps on the home page to see how you go about adding OAuth support via omniauth.
