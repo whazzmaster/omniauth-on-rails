@@ -21,13 +21,26 @@
   </head>
 
   <body>
+    <% if flash[:notice] %>
+    <div class="row flash-alert">
+      <div data-alert class="alert-box success">
+        <%= flash[:notice] %>
+      </div>
+    </div>
+    <% elsif flash[:alert] %>
+    <div class="row flash-alert">
+      <div data-alert class="alert-box alert">
+        <%= flash[:alert] %>
+      </div>
+    </div>
+    <% end %>
 
     <div class="row">
         <div class="large-12">
           <%= yield %>
         </div>
     </div>
-    
+
     <%= javascript_include_tag "application" %>
   </body>
 </html>

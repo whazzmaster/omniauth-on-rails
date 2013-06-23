@@ -1,0 +1,28 @@
+
+<h1>Members Only</h1>
+<%= link_to 'Home', root_path, class: 'button floating-button' %>
+<h3 class="subheader">Account Details</h3>
+<hr/>
+
+<table style="width:100%">
+  <thead>
+  <tr>
+    <th width="200">Name</th>
+    <th width="150"> Identity Provider</th>
+    <th width="150">UID</th>
+    <th>Account Created</th>
+    <th>Sign In Count</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><%= current_user.username %></td>
+    <td><%= current_user.provider.capitalize %></td>
+    <td><%= current_user.uid %></td>
+    <td><%= time_tag(current_user.created_at) %></td>
+    <td><%= current_user.sign_in_count %></td>
+  </tr>
+  </tbody>
+</table>
+
+<%= button_to 'Logout', destroy_user_session_path, class: 'button alert', method: :delete %>

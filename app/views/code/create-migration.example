@@ -1,1 +1,1 @@
-$ rails g migration add_oauth_fields_to_users provider uid oauth_token oauth_secret
+w$ rails g migration add_oauth_fields_to_users username provider uid oauth_token oauth_secret

@@ -11,5 +11,6 @@
  *= require_self
  *= require foundation_and_overrides
  *= require pygments
+ *= require customizations
  *= require_tree .
  */
