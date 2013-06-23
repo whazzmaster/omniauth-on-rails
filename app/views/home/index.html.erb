@@ -1,5 +1,14 @@
 <% content_for(:title, 'Home Page | OmniAuth Example') %>
 
+<!-- Uncomment once OAuth support is added --
+<% if user_signed_in? %>
+  <div class="panel">
+    <%= link_to 'View Dashboard', dashboard_path, class: 'button floating-button' %>
+    <p>Logged in as <b><%= current_user.username %></b></p>
+  </div>
+<% end %>
+-->
+
 <h1>OAuth on Rails</h1>
 <h3 class="subheader">Logging in With Twitter, Facebook, and More!</h3>
 <hr/>
@@ -10,15 +19,7 @@ and its myriad <a href="https://github.com/intridea/omniauth/wiki/List-of-Strate
 add the ability to login to your Rails app via many 3rd party identity providers.
 </p>
 
-<div class="row">
-  <div class="small-10 large-centered columns">
-    <%= link_to 'Login with Facebook', '#',  class: 'button large' %>
-    &nbsp;
-    <%= link_to 'Login with Twitter', '#',  class: 'button large' %>
-    &nbsp;
-    <%= link_to 'Login with Github', '#',  class: 'button large' %>
-  </div>
-</div>
+<%= render partial: 'login_links' %>
 
 <h2>Acquire Your Secrets</h2>
 <hr/>
@@ -28,7 +29,7 @@ Click on the desired provider below to go to the New Application signup form (no
 accounts for each provider.)
 </p>
 
-<ul class="large-block-grid-4">
+<ul class="small-block-grid-3" style="text-align: center;">
   <li>
     <a class="th radius" href="https://developers.facebook.com/apps">
       <%= image_tag('facebook-oauth.png') %>
@@ -163,17 +164,62 @@ see if a user corresponding to the provider/uid already exists in our records, o
 out, but for the sake of simplicity I chose to define them here for now.
 </p>
 
+<h2>Add a Route to Handle the Logged-In User</h2>
+<hr/>
+<p>
+<code>OmniauthCallbacksController</code> handles the callback from the identity provider, creates or fetches
+the user record from the database, and then logs the user in and redirects them. We need a target to redirect
+them to after they're logged in.
+</p>
 
+<p>
+  Let's create a <b>dashboard</b> route that the user can only hit if they're logged in.
 
-<div class="row">
-  <div class="small-10 large-centered columns">
-    <%= link_to 'Login with Facebook', '#',  class: 'button large' %>
-    &nbsp;
-    <%= link_to 'Login with Twitter', '#',  class: 'button large' %>
-    &nbsp;
-    <%= link_to 'Login with Github', '#',  class: 'button large' %>
-  </div>
-</div>
+<%= highlight_code('post-signin-route.example', :ruby) %>
+</p>
+
+<h2>Add Default Redirect to the New Route</h2>
+<hr/>
+<p>
+  Once the user is logged in and redirected, we need to add a bit of code to the <code>ApplicationController</code>
+  to define where they're redirected to. In this case we'll <a href="http://rubydoc.info/github/plataformatec/devise/master/Devise/Controllers/Helpers">take advantage of a hook that Devise exposes</a>
+  to override the path to redirect to after the user has logged in.
+</p>
+
+<p>
+  While we're updating hooks; also add a small override to redirect to the home page
+  when we log out.
+
+  <%= highlight_code('post-signin-redirect.example', :ruby) %>
+</p>
+
+<h2>Add Handler for Dashboard Route in <code>HomeController</code></h2>
+<hr/>
+<p>
+Create a method on the <code>HomeController</code> to handle the dashboard route. We also
+want to make sure that only logged-in users can access the dashboard page, so we'll add
+a filter to check the authentication state only on the dashboard action.
+
+<%= highlight_code('dashboard-action.example', :ruby) %>
+</p>
+
+<h2>Add View for the Dashboard Route</h2>
+<hr/>
+<p>
+All we need now is to create the view for our newly logged-in user's dashboard page. Let's
+configure it to display information about their user account.
+
+<%= highlight_code('dashboard-view.example', :erb) %>
+</p>
+
+<h2>Test it Out</h2>
+<hr/>
+<p>
+Try to login via each of the providers. In each case you should be redirected to the
+dashboard page after logging in and approving the application via the identity provider.
+</p>
+
+<%= render partial: 'login_links' %>
 
 
 
