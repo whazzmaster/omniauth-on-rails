@@ -10,3 +10,5 @@ test*.rb
 log
 db/*.sqlite3
 tmp
+.powrc
+.powenv
