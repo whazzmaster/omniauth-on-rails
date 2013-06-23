@@ -1,0 +1,5 @@
+# Authentication
+gem 'devise'
+gem 'omniauth-facebook'
+gem 'omniauth-twitter'
+gem 'omniauth-github'

@@ -5,8 +5,9 @@ gem 'rails', '3.2.13'
 # Database
 gem 'sqlite3'
 
-# Bring in the Zurb framework
+# Layout/Display utilities
 gem 'zurb-foundation'
+gem 'pygments.rb'
 
 # Authentication
 gem 'devise'

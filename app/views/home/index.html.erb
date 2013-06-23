@@ -67,15 +67,7 @@ to your gemfile to pull in the strategies you wish to use. For this example we'l
 <b>Twitter</b>, and <b>Github</b>.
 </p>
 
-<div class="panel">
-<pre>
-# Authentication
-gem 'devise'
-gem 'omniauth-facebook'
-gem 'omniauth-twitter'
-gem 'omniauth-github'
-</pre>
-</div>
+<%= highlight_code('update-gemfile.example', :ruby) %>
 
 <h2>Add Initialization Code to <code>devise.rb</code></h2>
 <hr/>
@@ -85,22 +77,32 @@ given when you created your application. Open <code>config/initializers/devise.r
 section.
 </p>
 
-<div class="panel">
-<pre>
-# ==> OmniAuth
-# Add a new OmniAuth provider. Check the wiki for more information on setting
-# up on your models and hooks.
-config.omniauth :twitter, ENV['TWITTER_CONSUMER_KEY'], ENV['TWITTER_CONSUMER_SECRET']
-config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_SECRET']
-config.omniauth :github, ENV['GITHUB_APP_ID'], ENV['GITHUB_SECRET']
-</pre>
-</div>
+<%= highlight_code('configure-omniauth.example', :ruby) %>
 
 <p>
-<b>Please note</b> that for now we're funneling environment variable values to the configuration. We haven't
-actually defined them yet, but we will a little ways down. <b>ALWAYS</b> maintain strict control over your consumer
-token and secret; they should be kept out of source control and inaccessible to everyone but a privileged few.
+<b>Please note</b> that for now we're funneling environment variable values to the configuration; we'll define them
+in the next section, but <b>ALWAYS</b> maintain strict control over your consumer token and secret; they should be
+kept out of source control and inaccessible to everyone but a privileged few.
 </p>
+
+<h2>Configure Environment Variables</h2>
+<hr/>
+<p>
+There are a variety of ways to make the OAuth application tokens available to your Rails application:
+</p>
+
+<ol>
+  <li>
+    <b>If you're using <a href="http://pow.cx/">pow</a> to serve your app locally</b> then it's as simple as creating a <code>.powenv</code>
+    file in the root of your project.
+    <%= highlight_code('powenv.example', :sh) %>
+  </li>
+  <li>
+    <b>If you're running your development sever from the command line</b> then you'll need to pass the environment
+    variables when starting the server.
+    <%= highlight_code('cli-startup.example', :sh) %>
+  </li>
+</ol>
 
 <h2>Create <code>omniauth_callbacks_controller.rb</code></h2>
 <hr/>
@@ -109,13 +111,7 @@ The preliminary setup is done; let's tackle the roundtrip to the provider server
 allow you to link to a provider's oauth front door. Pass the symbol of the provider to the helper.
 </p>
 
-<div class="panel">
-<pre>
-&lt;%= link_to "Login with Facebook", user_omniauth_authorize_path(:facebook) %&gt;
-&lt;%= link_to "Login with Twitter", user_omniauth_authorize_path(:twitter) %&gt;
-&lt;%= link_to "Login with Github", user_omniauth_authorize_path(:github) %&gt;
-</pre>
-</div>
+<%= highlight_code('link-to-providers.example', :erb) %>
 
 <p>
 Once the user has navigated to the provider website, entered credentials, and approved your app for access, they
@@ -124,31 +120,42 @@ request from the provider, and login or register the user based on the contents 
 contained in the request.
 </p>
 
-<div class="panel">
-<pre>
-&lt;%= link_to "Login with Facebook", user_omniauth_authorize_path(:facebook) %&gt;
-&lt;%= link_to "Login with Twitter", user_omniauth_authorize_path(:twitter) %&gt;
-&lt;%= link_to "Login with Github", user_omniauth_authorize_path(:github) %&gt;
-</pre>
-</div>
+<%= highlight_code('omniauth-callbacks-controller.example', :ruby) %>
 
 <h2>Add OAuth fields to <code>User</code> table</h2>
 <hr/>
 <p>
-
+Once the user has authenticated with the provider we're going to want to save off some of the auth data. To that end
+let's add some new fields to the User data model to store the oauth-related fields.
 </p>
+<p>
+Create a new database migration:
+</p>
+
+<%= highlight_code('create-migration.example', :bash) %>
+
+<p>
+Open the generated migration file to see the new fields that will be added to the table.
+</p>
+
+<%= highlight_code('enhance-user-model.example', :ruby) %>
 
 <h2>Add Support to <code>User</code> class</h2>
 <hr/>
 <p>
-
+On line 3 of the OmniauthCallbacksController you can see we want to call into the <code>User</code> class to acquire
+aa user instance based on the auth data returned by the provider. The method <code>User.from_omniauth</code> will
+see if a user corresponding to the provider/uid already exists in our records, or create one if not found.
 </p>
 
-<h2>Configure Environment Variables</h2>
-<hr/>
+<%= highlight_code('user-methods.example', :ruby) %>
+
 <p>
-
+<b>Note:</b> Fans of thin models will likely wince at this design. I wholly agree that these operations can be refactored
+out, but for the sake of simplicity I chose to define them here for now.
 </p>
+
+
 
 <div class="row">
   <div class="small-10 large-centered columns">

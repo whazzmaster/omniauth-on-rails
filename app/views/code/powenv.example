@@ -1,0 +1,6 @@
+export TWITTER_CONSUMER_KEY="<your twitter consumer key>"
+export TWITTER_CONSUMER_SECRET="<your twitter consumer secret>"
+export FACEBOOK_APP_ID="<your facebook app id>"
+export FACEBOOK_SECRET="<your facebook secret>"
+export GITHUB_APP_ID="<your github app id>"
+export GITHUB_SECRET="<your github secret>"
