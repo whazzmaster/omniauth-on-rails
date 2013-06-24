@@ -38,6 +38,12 @@ application.
 
 Bundler will install Pygments itself when it gets pygments.rb as long as you have a Python interpreter installed.
 
+#### Install Gems
+
+~~~~sh
+$ bundle install
+~~~~
+
 #### Prep the Database
 Create and migrate the database.
 
