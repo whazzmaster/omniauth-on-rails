@@ -20,7 +20,7 @@ The repository contains commits up to and including a working version of the omn
 through the examples on your own roll back the repository to the 'base-state' tag.
 
 ~~~~sh
-$ git reset --hard base-state
+$ git reset --soft 01-base-state
 ~~~~
 
 #### Install Dependencies
