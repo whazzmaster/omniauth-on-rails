@@ -1,13 +1,11 @@
 <% content_for(:title, 'Home Page | OmniAuth Example') %>
 
-<!-- Uncomment once OAuth support is added --
 <% if user_signed_in? %>
   <div class="panel">
     <%= link_to 'View Dashboard', dashboard_path, class: 'button floating-button' %>
     <p>Logged in as <b><%= current_user.username %></b></p>
   </div>
 <% end %>
--->
 
 <h1>OAuth on Rails</h1>
 <h3 class="subheader">Logging in With Twitter, Facebook, and More!</h3>
